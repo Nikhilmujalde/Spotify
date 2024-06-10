@@ -1,4 +1,5 @@
 console.log("Let's start")
+console.log("new");
 let currentSong = new Audio();
 currentSong.volume = 0.5;
 let songs;
@@ -15,13 +16,13 @@ function convertToMinuteSecond(seconds) {
 
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`http://127.0.0.1:5500/Spotify/${currFolder}/`);
+    let a = await fetch(`/${folder}/`);
     let response = await a.text();
     // console.log(response);
     let div = document.createElement("div");
     div.innerHTML = response;
     let as = div.getElementsByTagName("a");
-    // console.log(as);
+    console.log(as);
     songs = []
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
@@ -29,12 +30,12 @@ async function getSongs(folder) {
             // .split will split the string or array from /Songs in two parts 
             // string = wlhteowietoit/SongsNikhil
             // after split wlhteowietoit/Songs and second part Nikhil
-            songs.push(decodeURIComponent(element.href.split(`/${currFolder}/`)[1]));
+            songs.push(decodeURIComponent(element.href.split(`/${folder}/`)[1]));
             // song.push((element.href.split("/Songs/")[1]));
             // decodeURIComponent will take into account %20 and all the other stuff
         }
     }
-    // console.log(song);
+    console.log(songs);
     // return song;
     // to print the song names on library
     let songUl = document.querySelector(".songList").getElementsByTagName("ul")[0]
@@ -65,8 +66,8 @@ async function getSongs(folder) {
 
 const playMusic = (track, pause = false) => {
     // let audio = new Audio( "/Spotify/Songs/" +  track);
-    currentSong.src = `${currFolder}/` + track;
-    currentSong.play();
+    currentSong.src = `/${currFolder}/` + track;
+    // currentSong.play();
     if (!pause) {
         currentSong.play();
         play.src = "Images/pause.svg";
@@ -76,7 +77,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`http://127.0.0.1:5500/Spotify/Songs/`);
+    let a = await fetch(`/Songs/`);
     let response = await a.text();
     // console.log(response);
     let div = document.createElement("div");
@@ -84,16 +85,19 @@ async function displayAlbums() {
     let anchors = div.getElementsByTagName("a");
     let cardContainer = document.querySelector(".card-container");
     let array = Array.from(anchors);
-    // console.log(e.href);
+    console.log(array);
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
-        if (e.href.includes("/Songs")) {
+        console.log("I am here");
+        if (e.href.includes("/Songs") && !e.href.includes(".htaccess")) {
+            console.log("inside");
+            console.log(e.href.split("/"));
             console.log(e.href.split("/").slice(-1)[0]);
             let folder = e.href.split("/").slice(-1)[0];
-            if (folder != "Songs") {
+            
 
                 // get the metadata of the folder
-                let a = await fetch(`http://127.0.0.1:5500/Spotify/Songs/${folder}/info.json`);
+                let a = await fetch(`/Songs/${folder}/info.json`);
 
                 let response = await a.json();
                 console.log(response);
@@ -109,11 +113,11 @@ async function displayAlbums() {
                                 </svg>
                             </svg>
                         </div>
-                        <img src="/Spotify/Songs/${folder}/cover.jpeg" alt="">
+                        <img src="/Songs/${folder}/cover.jpeg" alt="">
                         <h2>${response.title}</h2>
                         <p>${response.description}</p>
                     </div>`
-            }
+            
         }
     }
         // load the playlist whenever the card is clicked
