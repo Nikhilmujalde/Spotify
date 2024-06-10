@@ -1,0 +1,74 @@
+.border{
+    border: 2px solid red;
+    margin: 3px;
+}
+
+.flex{
+    display: flex;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.align-item{
+    align-items: center;
+}
+
+.bg-black{
+    background-color: black;
+    color: white;
+}
+
+
+/* bg-black lagane ke bad sari chize black ho gyi thi isliye logo ko white karne ke liye isse ye hoga ki jispe bhi ye class lagegi uska color invert ho jayega */
+.invert{
+    filter: invert(1);
+}
+
+.bg-grey{
+    background-color: #121212;
+}
+
+.rounded{
+    border-radius: 7px;
+}
+
+.m-1{
+    margin: 5px;
+}
+
+.p-1{
+    padding: 10px;
+}
+
+/* Custom scrollbar for Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 16px; /* Width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #000000; /* Black background for the scrollbar track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #5a5a5a; /* Thumb color */
+    border-radius: 8px; /* Rounded corners for the scrollbar thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #444444; /* Slightly darker background when hovering */
+  }
+  
+  /* Custom scrollbar for Firefox */
+  * {
+    scrollbar-width: auto; /* Default scrollbar width */
+    scrollbar-color: #5a5a5a #000000; /* Thumb and track colors */
+  }
+  
+  /* Custom scrollbar for IE, Edge, and other browsers */
+  body {
+    scrollbar-face-color: #5a5a5a; /* Thumb color */
+    scrollbar-track-color: #000000; /* Track color */
+  }
+  
